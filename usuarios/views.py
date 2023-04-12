@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.messages import constants
+from django.urls import reverse
 
 import re
 
@@ -14,16 +17,28 @@ def cadastro(request):
         confirma_senha = request.POST.get('confirmar_senha')
         
         if len(senha) < 7:
-           return redirect('/usuarios/cadastro')
-            
-        if not senha == confirma_senha:
-            return redirect('/usuarios/cadastro')
+            messages.add_message(request, constants.ERROR, 'A senha deve ter pelo menos 8 caracteres.')
+            return redirect(reverse('cadastro'))
         
-        user  = User.objects.filter(username=username)
+        elif re.search('[0-9]',senha) is None:
+           messages.add_message(request, constants.ERROR, 'A senha deve conter pelo menos um número.')
+           return redirect(reverse('cadastro'))
+        
+        elif re.search('[A-Z]',senha) is None:
+           messages.add_message(request, constants.ERROR,  'A senha deve conter pelo menos uma letra maiúscula.')
+           return redirect(reverse('cadastro'))
+           
+        if not senha == confirma_senha:
+            messages.add_message(request, constants.ERROR, 'As senhas não coincidem')
+            return redirect(reverse('cadastro'))
+        
+        user = User.objects.filter(username=username)
         
         if user.exists():
-            return redirect('/usuarios/cadastro')
+            messages.add_message(request, constants.ERROR, 'Usuario já esta cadastrado.')
+            return redirect(reverse('cadastro'))
         
-        user = User.objects.create_user(username=username,email=email,password=senha)
+        user = User.objects.create_user(username=username, email=email,password=senha)
         
-        return HttpResponse("CERTO")
+        messages.add_message(request, constants.SUCCESS, 'Usuario cadastrado com sucesso')
+        return redirect(reverse('login'))
