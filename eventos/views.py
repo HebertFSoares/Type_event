@@ -5,6 +5,9 @@ from django.urls import reverse
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.http import Http404
+import csv,os
+from secrets import token_urlsafe
+from django.conf import settings  
 
 @login_required
 def novo_evento(request):
@@ -71,3 +74,21 @@ def participantes_evento(request, id):
     if request.method == "GET":
         participantes = evento.participantes.all()[::3]
         return render(request, 'participantes_evento.html', {'participantes' : participantes, 'evento' : evento})
+
+@login_required
+def gerar_csv(request, id):
+    evento = get_object_or_404(Evento, id=id)
+    if not evento.criador == request.user:
+        raise Http404('Esse evento não é seu')
+    participantes = evento.participantes.all()
+    
+    token = f'{token_urlsafe(6)}.csv'
+    path = os.path.join(settings.MEDIA_ROOT, token)
+
+    with open(path, 'w') as arq:
+        writer = csv.writer(arq, delimiter=",")
+        for participante in participantes:
+            x = (participante.username, participante.email)
+            writer.writerow(x)
+
+    return redirect(f'/media/{token}')
