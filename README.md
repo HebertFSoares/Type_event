@@ -6,6 +6,23 @@ Este é um projeto de desenvolvimento web com Django, é uma plataforma para ger
 - Inscrição de usuários em eventos cadastrados
 - Geração de certificados para os participantes do evento
 - Geração de link de convite para o evento
+
+## Utilização
+- Tela de Cadastro e Login
+ Na tela inicial da plataforma é possível realizar o cadastro de um novo usuário ou fazer login com um usuário já existente. Para se cadastrar, clique em "Cadastrar" e preencha os dados solicitados. Para fazer login, preencha o formulário de login na parte superior da tela.
+
+- Cadastro de Novo Evento
+ Ao fazer login na plataforma, é possível cadastrar um novo evento clicando no botão "Novo Evento" na barra de navegação superior. Preencha as informações solicitadas, como nome do evento, data, local, etc.
+
+- Inscrição em Evento
+ Usuários cadastrados na plataforma podem se inscrever em eventos já cadastrados. Para isso, acesse a página do evento desejado e clique no botão "Inscrever-se". O usuário receberá uma confirmação de inscrição por e-mail.
+
+- Geração de Certificado
+ Após a realização do evento, os participantes poderão gerar um certificado de participação. Para isso, basta acessar a página do evento e clicar no botão "Gerar Certificado". O certificado será gerado em PDF e poderá ser salvo ou impresso.
+
+- Geração de Link de Convite
+ Ao cadastrar um novo evento, o usuário poderá gerar um link de convite para o evento. Esse link poderá ser compartilhado com outras pessoas, que poderão se inscrever no evento diretamente a partir desse link. Para gerar o link de convite, basta acessar a página do evento e clicar no botão "Gerar Link de Convite". O link será gerado e poderá ser copiado e compartilhado.
+
 ## Tecnologias
 ### Este projeto foi desenvolvido utilizando as seguintes tecnologias:
 
