@@ -1,4 +1,4 @@
-# Type_event-DJANGO
+# Type_event
 Este é um projeto de desenvolvimento web com Django, é uma plataforma para gerenciamento de eventos. A plataforma contém as seguintes funcionalidades:
 
 - Tela de cadastro e login de usuários
